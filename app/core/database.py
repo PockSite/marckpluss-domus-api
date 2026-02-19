@@ -7,7 +7,7 @@ if DB_URL.startswith("sqlite"):
     engine = create_engine(
         DB_URL,
         connect_args={"check_same_thread": False},
-        poolclass=StaticPool   # 🔥 siempre
+        poolclass=StaticPool   
     )
 else:
     engine = create_engine(DB_URL)
