@@ -9,9 +9,9 @@ class DomusClient(BaseExternalClient):
             api_key=DOMUS_API_KEY
         )
 
-    async def obtener_inmueble(self, inmueble_id: str):
+    async def get_property(self, inmueble_id: str):
         # Usamos el método 'get' del padre
         return await self.get(f"properties/{inmueble_id}")
 
-    async def listar_inmuebles(self, filtros: dict):
+    async def list_properties(self, filtros: dict):
         return await self.get("properties", params=filtros)
