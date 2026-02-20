@@ -1,12 +1,23 @@
-from jose import jwt
-from app.core.config import SECRET_KEY, ALGORITHM
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from app.core.config import API_KEY
 
 
-def verify_access_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.JWTError as e:
-        print(f"Token verification failed: {e}")
-        return None
+security = HTTPBearer()
 
+def verify_api_key(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    if credentials.scheme != "Bearer":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication scheme"
+        )
+
+    if credentials.credentials != API_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid API Key"
+        )
+
+    return credentials.credentials

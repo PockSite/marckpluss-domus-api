@@ -1,17 +1,21 @@
 from app.client.client import BaseExternalClient
 from app.core.config import DOMUS_API_KEY, DOMUS_URL
 
+class DomusClient(BaseExternalClient[dict]):
+    def __init__(self, timeout = 10):
+        super().__init__(DOMUS_URL, timeout)
 
-class DomusClient(BaseExternalClient):
-    def __init__(self):
-        super().__init__(
-            base_url=DOMUS_URL, 
-            api_key=DOMUS_API_KEY
+    async def get_all_properties(self, inmobiliaria_id: int = 1, per_page: int = 12) -> list:
+        # Ajustamos los headers exactos que Domus espera
+        headers = {
+            "inmobiliaria": str(inmobiliaria_id),
+            "perpage": str(per_page),
+            "Authorization": DOMUS_API_KEY
+        }
+        
+        response_data = await self._request(
+            method="GET",
+            endpoint="properties",
+            headers=headers
         )
-
-    async def get_property(self, inmueble_id: str):
-        # Usamos el método 'get' del padre
-        return await self.get(f"properties/{inmueble_id}")
-
-    async def list_properties(self, filtros: dict):
-        return await self.get("properties", params=filtros)
+        return response_data

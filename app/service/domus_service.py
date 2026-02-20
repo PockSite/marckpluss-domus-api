@@ -4,9 +4,7 @@ class DomusService:
         self.client = client
 
     async def get_available_properties(self, zone: str = None):
-        raw_data = await self.client.get("properties", params={"status": "available", "zone": zone})
-        
-        properties = [p for p in raw_data if p.get("has_photos")]
+        properties = await self.client.get_all_properties()
         
         return properties
 

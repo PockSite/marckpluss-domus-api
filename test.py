@@ -1,5 +1,9 @@
-from app.core.security import verify_access_token
+from app.client.domus_client import DomusClient
 
-token = ""
-payload = verify_access_token(token)
-print(payload)
+client = DomusClient(10)
+
+async def getprop():
+    response = await client.get_all_properties()
+    return response
+
+
