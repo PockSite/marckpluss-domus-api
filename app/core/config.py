@@ -18,5 +18,9 @@ ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 15))
 REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 30))
 
+CORS = [
+    origin.strip()
+    for origin in os.getenv("CORS", "http://localhost:4200").split(",")
+]
 
 API_KEY = os.getenv("API_KEY", "ENDPOINT_API_KEY_CHANGE_ME")
