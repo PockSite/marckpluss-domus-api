@@ -3,7 +3,7 @@ from app.api.v1.router import router
 from app.core.config import CORS
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(redirect_slashes=False)
 
 app.add_middleware(
     CORSMiddleware,
