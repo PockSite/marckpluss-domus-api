@@ -19,3 +19,15 @@ class DomusClient(BaseExternalClient[dict]):
             headers=headers
         )
         return response_data
+    
+    async def get_property_by_id(self, property_id: int, inmobiliaria_id: int = 1) -> dict:
+        headers = {
+            "Authorization": DOMUS_API_KEY,
+            "inmobiliaria": str(inmobiliaria_id)
+        }
+        response_data = await self._request(
+            method="GET",
+            endpoint=f"properties/{property_id}",
+            headers=headers
+        )
+        return response_data

@@ -9,4 +9,4 @@ class DomusService:
         return properties
 
     async def get_property_by_id(self, property_id: str):
-        return await self.client.get(f"properties/{property_id}")
+        return await self.client.get_property_by_id(property_id)
