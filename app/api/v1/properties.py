@@ -18,3 +18,17 @@ async def get_properties(
             print(e)
             detail += f" ({e})"
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=detail)
+    
+@router.get("/{property_id}")
+async def get_property_by_id(
+    property_id: str,
+    service: DomusService = Depends(get_domus_service)
+    ):
+    try:
+        return await service.get_property_by_id(property_id)
+    except Exception as e:
+        detail = "Internal server error"
+        if DEBUG:
+            print(e)
+            detail += f" ({e})"
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=detail)
