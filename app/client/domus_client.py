@@ -5,7 +5,7 @@ class DomusClient(BaseExternalClient[dict]):
     def __init__(self, timeout = 10):
         super().__init__(DOMUS_URL, timeout)
 
-    async def get_all_properties(self, inmobiliaria_id: int = 1, per_page: int = 12) -> list:
+    async def get_all_properties(self, inmobiliaria_id: int = 1, per_page: int = 300) -> list:
         # Ajustamos los headers exactos que Domus espera
         headers = {
             "inmobiliaria": str(inmobiliaria_id),
