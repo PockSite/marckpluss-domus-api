@@ -5,6 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+@app.get("/")
+def health():
+    return {"status": "ok"}
+
+@app.head("/")
+def health_head():
+    return {"status": "ok"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS,           
